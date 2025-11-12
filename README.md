@@ -46,3 +46,22 @@ BuildContext adalah objek yang menunjukkan posisi suatu widget di dalam widget t
 **6. Jelaskan konsep "hot reload" di Flutter dan bagaimana bedanya dengan "hot restart".**
 
 Hot reload merupakan fitur yang memnugkinkan perubahan kode terlihat langsung tanpa kehilangan state aplikasi yang berjalan. Hal itu bisa mempercepat proses pengembangan. Sedangkan hot restart akan mengulang seluruh aplikasi dari awal dan menghapus semua state yang sudah ada. 
+
+---
+## Tugas 8 (Pertanyaan)
+
+**1. Jelaskan perbedaan antara Navigator.push() dan Navigator.pushReplacement() pada Flutter. Dalam kasus apa sebaiknya masing-masing digunakan pada aplikasi Football Shop kamu?**
+
+`Navigator.push()` digunakan untuk pindah ke halaman baru tanpa menutup halaman sebelumnya. Hal itu memungkinkan user untuk bisa menekan tombol back. Sedangkan `Navigator.psuhReplacement()` akan menggntikan halaman sekarang dengan halaman baru sehingga user tidak bisa tekan back karena sudah terhapus dari stack. Di aplikasi saya sebaiknya `navigator.push()` digunakan untuk berpindah ke halaman detail produk dan `navigator.pushReplacement()` cocok digunakan untuk pindah dari halaman login ke halaman utama.
+
+**2. Bagaimana kamu memanfaatkan hierarchy widget seperti Scaffold, AppBar, dan Drawer untuk membangun struktur halaman yang konsisten di seluruh aplikasi?**
+
+Saya menggunakan Scaffold untuk kerangka utamanya. AppBar digunakan untuk membuat judulhalaman agar terus konsisten. Drawer digunakan untuk membuat navbar di samping agar user bisa berpindah-pindah halaman. Dengan semua hal itu, tampilan dari aplikasi menjadi lebih stabil, konsisten, dan nyaman dipandang.
+
+**3. Dalam konteks desain antarmuka, apa kelebihan menggunakan layout widget seperti Padding, SingleChildScrollView, dan ListView saat menampilkan elemen-elemen form? Berikan contoh penggunaannya dari aplikasi kamu.**
+
+Padding membuat tampilan lebih rapi dan tidak berdempet. SingleChildScrollView berguna agar form bisa discroll jika isinya banyak, terutama di layar kecil. ListView cocok untuk menampilkan banyak elemen form atau list produk secara vertikal. Di aplikasi saya, halaman form produk menggunakan Padding di tiap input dan diwrap SingleChildScrollView agar bisa digeser ke bawah tanpa overflow.
+
+**4. Bagaimana kamu menyesuaikan warna tema agar aplikasi Football Shop memiliki identitas visual yang konsisten dengan brand toko?**
+
+Saya menggunakan colorscheme diparent widget MaterialAppnya, sehingga seluruh halaman bisa konsisten menggunkaan warna yang sama
