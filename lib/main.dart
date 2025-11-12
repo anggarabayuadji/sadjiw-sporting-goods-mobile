@@ -1,4 +1,4 @@
-import 'package:sadjiw_sporting_goods/menu.dart';
+import 'package:sadjiw_sporting_goods/screens/menu.dart';
 import 'package:flutter/material.dart';
 
 void main() {
