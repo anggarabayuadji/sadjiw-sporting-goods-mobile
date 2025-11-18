@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sadjiw_sporting_goods/screens/menu.dart';
 import 'package:sadjiw_sporting_goods/screens/productlist_form.dart';
+import 'package:sadjiw_sporting_goods/screens/product_entry_list.dart';
 
 class ItemCard extends StatelessWidget {
   // Menampilkan kartu dengan ikon dan nama.
@@ -29,12 +30,19 @@ class ItemCard extends StatelessWidget {
 
           // Navigate ke route yang sesuai (tergantung jenis tombol)
           if (item.name == "Create Products") {
-            // TODO: Gunakan Navigator.push untuk melakukan navigasi ke MaterialPageRoute yang mencakup NewsFormPage.
+            // TODO: Gunakan Navigator.push untuk melakukan navigasi ke MaterialPageRoute yang mencakup ProductFormPage.
             Navigator.push(
                 context,
                 MaterialPageRoute(
                   builder: (context) => ProductFormPage(),
                 ));
+          } else if (item.name == "All Products") {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => const ProductEntryListPage()
+              ),
+            );
           }
 
         },

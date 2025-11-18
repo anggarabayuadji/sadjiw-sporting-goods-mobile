@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/material.dart';
 import 'package:sadjiw_sporting_goods/screens/menu.dart';
+import 'package:sadjiw_sporting_goods/screens/product_entry_list.dart';
 
 import '../screens/productlist_form.dart';
-// TODO: Impor halaman NewsFormPage jika sudah dibuat
+// TODO: Impor halaman ProductFormPage jika sudah dibuat
 
 class LeftDrawer extends StatelessWidget {
   const LeftDrawer({super.key});
@@ -52,17 +53,28 @@ class LeftDrawer extends StatelessWidget {
           ListTile(
             leading: const Icon(Icons.post_add),
             title: const Text('Add Product'),
-            // Bagian redirection ke NewsFormPage
+            // Bagian redirection ke ProductFormPage
             onTap: () {
               /*
-              TODO: Buatlah routing ke NewsFormPage di sini,
-              setelah halaman NewsFormPage sudah dibuat.
+              TODO: Buatlah routing ke ProductFormPage di sini,
+              setelah halaman ProductFormPage sudah dibuat.
               */
               Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(
                   builder: (context) => const ProductFormPage(),
                 ),
+              );
+            },
+          ),
+          ListTile(
+            leading: const Icon(Icons.add_reaction_rounded),
+            title: const Text('Product List'),
+            onTap: () {
+              // Route to news list page
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const ProductEntryListPage()),
               );
             },
           ),
