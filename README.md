@@ -65,3 +65,35 @@ Padding membuat tampilan lebih rapi dan tidak berdempet. SingleChildScrollView b
 **4. Bagaimana kamu menyesuaikan warna tema agar aplikasi Football Shop memiliki identitas visual yang konsisten dengan brand toko?**
 
 Saya menggunakan colorscheme diparent widget MaterialAppnya, sehingga seluruh halaman bisa konsisten menggunkaan warna yang sama
+
+## Tugas 9 (Pertanyaan)
+
+**1. Jelaskan mengapa kita perlu membuat model Dart saat mengambil/mengirim data JSON? Apa konsekuensinya jika langsung memetakan Map<String, dynamic> tanpa model (terkait validasi tipe, null-safety, maintainability)?**
+
+Perlu membuat model Dart saat mengambil atau mengirim data JSON karena model memberikan struktur yang jelas, sehingga setiap field punya tipe data yang pasti dan null-safety. Dengan menggunakan mode, maka kesalahan seperti salah tipe (misal yang seharusnya string jadi integer) bisa terdeteksi lebih awal saat compile, bukan saat runtime. Jika kita langsung bekerja dengan Map<String, dynamic> tanpa model, maka tidak ada validasi tipe, field bisa salah nama tanpa ketahuan, nilai bisa null tanpa disadari, dan kode menjadi lebih sulit dirawat serta mudah menimbulkan bug yang sulit dilacak. Model membuat aplikasi lebih konsisten, aman, mudah dibaca, dan lebih mudah dikembangkan dalam jangka panjang.
+
+**2. Apa fungsi package http dan CookieRequest dalam tugas ini? Jelaskan perbedaan peran http vs CookieRequest. **
+
+Package http berfungsi untuk melakukan permintaan HTTP biasa seperti GET atau POST ke endpoint Django yang tidak memerlukan autentikasi, karena package ini tidak menyimpan cookie atau session.
+
+CookieRequest digunakan untuk kebutuhan autentikasi, seperti login, register, logout, dan akses endpoint yang membutuhkan status pengguna login. CookieRequest secara otomatis menyimpan dan mengirim session cookie Django, sehingga Flutter dapat mempertahankan sesi login di setiap request berikutnya. Sehingga bisa dibilang, http digunakan untuk request publik, sedangkan CookieRequest digunakan untuk request yang memerlukan identitas dan sesi pengguna.
+
+**3. Jelaskan mengapa instance CookieRequest perlu untuk dibagikan ke semua komponen di aplikasi Flutter.**
+
+Instance CookieRequest perlu dibagikan ke semua komponen Flutter karena objek ini menyimpan informasi sesi login, termasuk session cookie yang dibutuhkan untuk mengakses endpoint Django yang memerlukan autentikasi. Jika setiap halaman membuat instance CookieRequest baru, maka session tidak akan terbawa dan pengguna dianggap selalu “belum login”. Dengan membagikan satu instance yang sama (melalui Provider), seluruh halaman dapat mengakses status login, data pengguna, dan melakukan request terautentikasi secara konsisten.
+
+**4. Jelaskan konfigurasi konektivitas yang diperlukan agar Flutter dapat berkomunikasi dengan Django. Mengapa kita perlu menambahkan 10.0.2.2 pada ALLOWED_HOSTS, mengaktifkan CORS dan pengaturan SameSite/cookie, dan menambahkan izin akses internet di Android? Apa yang akan terjadi jika konfigurasi tersebut tidak dilakukan dengan benar?
+**
+
+Agar Flutter dapat berkomunikasi dengan Django, beberapa konfigurasi konektivitas harus disiapkan terlebih dahulu. Menambahkan 10.0.2.2 ke ALLOWED_HOSTS penting karena emulator Android tidak bisa mengakses localhost secara langsung dan membutuhkan alamat khusus itu untuk menjangkau server Django di komputer host. CORS harus diaktifkan, karena Flutter dan Django berada di origin yang berbeda, sehingga Django perlu diberi izin untuk menerima permintaan dari aplikasi Flutter. Selain itu, pengaturan SameSite/cookie perlu disesuaikan agar session cookie dapat ikut terkirim dalam setiap request, terutama untuk fitur login. Di sisi Flutter, kita juga harus menambahkan izin akses internet di AndroidManifest.xml, kalau tidak aplikasi tidak dapat mengirim request apa pun.
+
+Jika konfigurasi-konfigurasi ini tidak dilakukan dengan benar, Flutter akan gagal terhubung dengan Django. Request bisa diblokir oleh Django karena host tidak diizinkan, ditolak oleh CORS, cookie login tidak terkirim sehingga pengguna dianggap tidak autentikasi, atau aplikasi Android tidak bisa mengakses internet sama sekali. Akibatnya, fitur seperti login, fetch data, dan submit form tidak akan berfungsi.
+
+**5. Jelaskan mekanisme pengiriman data mulai dari input hingga dapat ditampilkan pada Flutter.**
+
+Mekanisme pengiriman data dari Flutter ke Django dimulai ketika pengguna mengisi input pada Flutter, lalu data tersebut dikemas menjadi JSON dan dikirim melalui request HTTP atau CookieRequest menuju endpoint Django. Django menerima request tersebut, memprosesnya (misalnya menyimpan ke database atau menghasilkan respons), lalu mengembalikan data JSON ke Flutter. Setelah Flutter menerima respons JSON, data tersebut diubah menjadi model Dart agar memiliki struktur dan tipe yang jelas. Model tersebut yang kemudian digunakan oleh widget untuk menampilkan data secara rapi dan aman di antarmuka aplikasi.
+
+**6. Jelaskan mekanisme autentikasi dari login, register, hingga logout. Mulai dari input data akun pada Flutter ke Django hingga selesainya proses autentikasi oleh Django dan tampilnya menu pada Flutter.**
+
+Autentikasi dimulai saat Flutter mengirim data login/registrasi ke Django melalui CookieRequest. Django memverifikasi atau membuat akun, lalu mengembalikan cookie sesi jika berhasil. Cookie ini disimpan oleh Flutter sehingga request selanjutnya dianggap sudah login. Setelah itu Flutter menampilkan menu utama. Saat logout, Flutter memanggil endpoint logout Django, sesi dihapus, dan cookie dibersihkan sehingga pengguna kembali tidak login.
+
