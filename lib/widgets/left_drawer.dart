@@ -17,7 +17,7 @@ class LeftDrawer extends StatelessWidget {
           const DrawerHeader(
             // TODO: Bagian drawer header
             decoration: BoxDecoration(
-              color: Colors.blue,
+              color: Color(0xFF0F2940),
             ),
             child: Column(
               children: [
@@ -33,6 +33,12 @@ class LeftDrawer extends StatelessWidget {
                 Padding(padding: EdgeInsets.all(10)),
                 Text("Produk olahraga terbaik di sini!",
                   // TODO: Tambahkan gaya teks dengan center alignment, font ukuran 15, warna putih, dan weight biasa
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 15,
+                    fontWeight: FontWeight.normal,
+                    color: Colors.white,
+                  ),
                 ),
               ],
             ),
